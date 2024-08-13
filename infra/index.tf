@@ -62,14 +62,6 @@ resource "aws_iam_policy" "index_policy" {
         ],
         Resource : "arn:aws:logs:*:*:*"
       },
-      {
-        Sid : "",
-        Effect : "Allow",
-        Action : [
-          "ses:*",
-        ],
-        Resource : "arn:aws:ses:*"
-      }
     ]
   })
 }
