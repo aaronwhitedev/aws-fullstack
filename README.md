@@ -1,4 +1,4 @@
-# AWS Full-Stack App using Terraform
+# AWS Fullstack App using Terraform
 
 This repo requires a domain name in Route 53. It scaffolds out all the infrastructure necessary for your web app and API including DNS records, multiple ACM Certs for apex domain and sub domains, S3 buckets, CloudFront distributions, API Gateway, and a Lambda function.
 
@@ -6,7 +6,7 @@ The `apex` domain (`domain-name.com` for example) is redirected to the `www` ver
 
 ## Who this repo is inteded for:
 
-Simple full-stack apps in a single enviornment where you typically only need a few API endpoints and Lamdba functions.
+Simple fullstack apps in a single enviornment where you typically only need a few API endpoints and Lamdba functions.
 
 # What you'll deploy
 
