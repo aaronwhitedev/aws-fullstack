@@ -39,8 +39,6 @@ brew update
 brew upgrade hashicorp/tap/terraform
 ```
 
-Download [jq](https://jqlang.github.io/jq/) or install using Homebrew `brew install jq`
-
 ## Permissions to run the scripts
 
 Give the scripts execute permissions:
