@@ -49,11 +49,14 @@ Give the scripts execute permissions:
 chmod +x ./infra/setup.sh ./infra/build.sh ./infra/deploy.sh ./infra/web.sh
 ```
 
+Change into your `infra` folder to continue:  
+`cd infra`  
+
 Run the setup using the below:
-`./infra/setup.sh your-domain-name.com`
+`./setup.sh your-domain-name.com`
 
 Provided everything works, run:
-`./infra/deploy.sh`
+`./deploy.sh`
 
 ### Terraform
 
