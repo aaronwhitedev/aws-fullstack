@@ -12,11 +12,11 @@ Simple full-stack apps in a single enviornment where you typically only need a f
 
 ### Front-End SPA (Single Page Application) using React, Vite, and Tailwind.
 
-![SPA App](https://raw.githubusercontent.com/aaronwht/aws-fullstack-terraform/main/readme/aws-spa.png)
+![SPA App](https://raw.githubusercontent.com/aaronwht/aws-fullstack/main/readme/aws-spa.png)
 
 ### API uses JavaScript and TypeScript with logging and associated permissions.
 
-![API](https://raw.githubusercontent.com/aaronwht/aws-fullstack-terraform/main/readme/lambda-basic.png)
+![API](https://raw.githubusercontent.com/aaronwht/aws-fullstack/main/readme/lambda-basic.png)
 
 ## Tech Stack
 
