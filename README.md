@@ -10,7 +10,7 @@ Simple fullstack apps in a single enviornment where you typically only need a fe
 
 # What you'll deploy
 
-### Front-End SPA (Single Page Application) using React, Vite, and Tailwind.
+### Frontend SPA (Single Page Application) using React, Vite, and Tailwind.
 
 ![SPA App](https://raw.githubusercontent.com/aaronwht/aws-fullstack/main/readme/aws-spa.png)
 
