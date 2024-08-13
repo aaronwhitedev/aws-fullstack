@@ -34,14 +34,31 @@ project="${array[0]}"
 unset IFS
 
 # Query AWS for your domain, use jq to parse the Hosted Zone Id
-domain_info=$(aws route53 list-hosted-zones-by-name --max-items 1 --dns-name $domain | jq '.HostedZones[] | .Name + "," + .Id')
-domain_info=$(echo "$domain_info" | tr -d '"')
+hosted_zone_info=$(aws route53 list-hosted-zones-by-name --max-items 1 --dns-name $domain)
+hosted_zone=$(echo "${hosted_zone_info}" | grep \"Id\")
+domain_info=$(echo "${hosted_zone_info}" | grep \"DNSName\")
 
-IFS=","
+IFS='/hostedzone/'
+read -ra array <<< "$hosted_zone"
+
+hosted_zone_id=''
+for val in "${array[@]}";
+do
+	if [[ ! "$val" = "" ]]; then
+		line=$(echo ${val} | tr -d ' ')
+		if [[ ${#line} -gt "5" ]]; then
+			hosted_zone_id="${line//[^[:alnum:].]/}"
+		fi
+	fi
+done
+unset IFS
+IFS=':'
 read -ra array <<< "$domain_info"
-compare_domain="${domain}."
 
-if [ "${array[0]}" != "${compare_domain}" ]; then
+aws_domain=${array[1]//[^[:alnum:].]/}
+unset IFS
+
+if [ "${aws_domain}" != "${domain}" ]; then
 	echo "Domain doesn't exist"
 	exit
 fi
@@ -52,12 +69,6 @@ fi
 
 mkdir config
 
-hosted_zone_id=${array[1]}
-# Trim prefix
-hosted_zone_id=${hosted_zone_id##*/}
-unset IFS
-
-hosted_zone_id="${hosted_zone_id//[^[:alnum:].]/}"
 
 # Save hosted zone id in text file
 echo "${hosted_zone_id}" > "./config/aws-hosted-zone-id.txt"
@@ -73,8 +84,6 @@ fi
 
 export TF_VAR_domain=${domain}
 export TF_VAR_project=${project}
-
-
 
 printf "bucket=\"infra.${domain}\"\nkey=\"terraform.tfstate\"\nregion=\"us-west-2\"" > "./config/terraform-config.txt"
 printf "domain=\"${domain}\"\nproject=\"${project}\"" > "./terraform.tfvars"
