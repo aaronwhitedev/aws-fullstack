@@ -16,6 +16,8 @@ if [[ $domain == www.* ]]; then
 	domain="${domain:4}"
 fi
 
+region="us-west-2"
+
 # split domain a '.'
 IFS="."
 
@@ -69,12 +71,11 @@ fi
 
 mkdir config
 
-
 # Save hosted zone id in text file
 echo "${hosted_zone_id}" > "./config/aws-hosted-zone-id.txt"
 
 # Create the S3 bucket for the infra
-bucket_created=$(aws s3api create-bucket --bucket infra.${domain} --create-bucket-configuration LocationConstraint=us-west-2 2>&1)
+bucket_created=$(aws s3api create-bucket --bucket infra.${domain} --create-bucket-configuration LocationConstraint=${region} 2>&1)
 
 if [[ $bucket_created = *'error'* ]]; then
 	if [[ $bucket_created != *'BucketAlreadyOwnedByYou'* ]]; then
@@ -85,7 +86,7 @@ fi
 export TF_VAR_domain=${domain}
 export TF_VAR_project=${project}
 
-printf "bucket=\"infra.${domain}\"\nkey=\"terraform.tfstate\"\nregion=\"us-west-2\"" > "./config/terraform-config.txt"
+printf "bucket=\"infra.${domain}\"\nkey=\"terraform.tfstate\"\nregion=\"${region}\"" > "./config/terraform-config.txt"
 printf "domain=\"${domain}\"\nproject=\"${project}\"" > "./terraform.tfvars"
 
 terraform init &> '/dev/null'

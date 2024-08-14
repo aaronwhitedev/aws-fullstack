@@ -8,6 +8,10 @@ variable "project" {
   type = string
 }
 
+variable "region" {
+  type = string
+}
+
 terraform {
   required_providers {
     aws = {
@@ -18,7 +22,7 @@ terraform {
   backend "s3" {
     bucket = "infra.${TF_VAR_domain}"
     key    = "terraform.tfstate"
-    region = "us-west-2"
+    region = var.region
   }
 }
 
