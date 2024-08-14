@@ -1,6 +1,6 @@
 # AWS Fullstack App using Terraform
 
-This repo requires a domain name in Route 53. It scaffolds out all the infrastructure necessary for your web app and API including DNS records, multiple ACM Certs for apex domain and sub domains, S3 buckets, CloudFront distributions, API Gateway, and a Lambda function.
+This repo requires a domain name in Route 53. It scaffolds out all the infrastructure necessary for your web app and API including DNS records, multiple ACM Certs the for apex domain and sub domains, S3 buckets, CloudFront distributions, API Gateway, and a Lambda function.
 
 The `apex` domain (`domain-name.com` for example) is redirected to the `www` version (`www.your-domain.com`) of the site. The API will be at `api.your-domain.com`.
 
@@ -48,7 +48,7 @@ chmod +x ./infra/setup.sh ./infra/build.sh ./infra/deploy.sh ./infra/web.sh
 ```
 
 Change into your `infra` folder to continue:  
-`cd infra`  
+`cd infra`
 
 Run the setup using the below:
 `./setup.sh your-domain-name.com`
