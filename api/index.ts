@@ -4,6 +4,6 @@ export const handler: Handler = async (event: APIGatewayProxyEvent): Promise<API
 	return {
 		statusCode: 200,
 		headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" },
-		body: JSON.stringify({ error: false, message: "Hello" }),
+		body: JSON.stringify({ error: false, books: [{ name: "Clean Code" }, { name: "The Pragmatic Programmer" }] }),
 	};
 };

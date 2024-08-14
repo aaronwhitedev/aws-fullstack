@@ -100,16 +100,22 @@ if [ -d ./web ]; then
 fi
 
 npm create vite@latest web -- --template react-ts 2>&1
-cd web && npm i 2>&1
+cd web && npm i react-router-dom 2>&1
 npm install -D tailwindcss postcss autoprefixer 2>&1
 npx tailwind init -p 2>&1
 
 rm ./src/App.tsx ./src/App.css ./src/index.css ./public/vite.svg ./src/assets/react.svg ./tailwind.config.js
 cd ../infra
 
-cp ./tailwind/App.tsx ../web/src/App.tsx
+cp ./tailwind/Home.tsx ../web/src/Home.tsx
+cp ./tailwind/main.tsx ../web/src/main.tsx
+cp ./tailwind/Nav.tsx ../web/src/Nav.tsx
+cp ./tailwind/ErrorPage.tsx ../web/src/ErrorPage.tsx
 cp ./tailwind/index.css ../web/src/index.css
 cp ./tailwind/tailwind.config.js ../web/tailwind.config.js
+cp ./tailwind/eslint.config.js ../web/eslint.config.js
+
+printf "VITE_API=\"https://api.${domain}\"" > "../web/.env"
 ######################################################################
 /bin/bash ./build.sh
 
