@@ -85,6 +85,7 @@ fi
 
 export TF_VAR_domain=${domain}
 export TF_VAR_project=${project}
+export TF_VAR_region=${region}
 
 printf "bucket=\"infra.${domain}\"\nkey=\"terraform.tfstate\"\nregion=\"${region}\"" > "./config/terraform-config.txt"
 printf "domain=\"${domain}\"\nproject=\"${project}\"" > "./terraform.tfvars"

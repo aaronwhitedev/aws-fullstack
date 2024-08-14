@@ -22,7 +22,7 @@ terraform {
   backend "s3" {
     bucket = "infra.${TF_VAR_domain}"
     key    = "terraform.tfstate"
-    region = var.region
+    region = "${TF_VAR.region}"
   }
 }
 
