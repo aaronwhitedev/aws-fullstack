@@ -1,23 +1,5 @@
 # AWS Fullstack App using Terraform
 
-This repo requires a domain name in Route 53. It scaffolds out all the infrastructure necessary for your web app and API including DNS records, multiple ACM Certs the for apex domain and sub domains, S3 buckets, CloudFront distributions, API Gateway, and a Lambda function.
-
-The `apex` domain (`domain-name.com` for example) is redirected to the `www` version (`www.your-domain.com`) of the site. The API will be at `api.your-domain.com`.
-
-## Who this repo is inteded for:
-
-Simple fullstack apps in a single enviornment where you typically only need a few API endpoints and Lamdba functions.
-
-# What you'll deploy
-
-### Frontend SPA (Single Page Application) using React, Vite, and Tailwind.
-
-![SPA App](https://raw.githubusercontent.com/aaronwht/aws-fullstack/main/readme/aws-spa.png)
-
-### API uses JavaScript and TypeScript with logging and associated permissions.
-
-![API](https://raw.githubusercontent.com/aaronwht/aws-fullstack/main/readme/lambda-basic.png)
-
 ## Tech Stack
 
 AWS, Bash, Terraform, JavaScript, TypeScript, React, Vite, and Tailwind.
@@ -38,6 +20,24 @@ brew install hashicorp/tap/terraform
 brew update
 brew upgrade hashicorp/tap/terraform
 ```
+
+This repo requires a domain name in Route 53. It scaffolds out all the infrastructure necessary for your web app and API including DNS records, multiple ACM Certs the for apex domain and sub domains, S3 buckets, CloudFront distributions, API Gateway, and a Lambda function.
+
+The `apex` domain (`domain-name.com` for example) is redirected to the `www` version (`www.your-domain.com`) of the site. The API will be at `api.your-domain.com`.
+
+## Who this repo is inteded for:
+
+Simple fullstack apps in a single enviornment where you typically only need a few API endpoints and Lamdba functions.
+
+# What you'll deploy
+
+### Frontend SPA (Single Page Application) using React, Vite, and Tailwind.
+
+![SPA App](https://raw.githubusercontent.com/aaronwht/aws-fullstack/main/readme/aws-spa.png)
+
+### API uses JavaScript and TypeScript with logging and associated permissions.
+
+![API](https://raw.githubusercontent.com/aaronwht/aws-fullstack/main/readme/lambda-basic.png)
 
 ## Permissions to run the scripts
 
