@@ -44,7 +44,7 @@ brew upgrade hashicorp/tap/terraform
 Give the scripts execute permissions:
 
 ```
-chmod +x ./infra/setup.sh ./infra/build.sh ./infra/deploy.sh ./infra/web.sh
+chmod +x ./infra/setup.sh ./infra/api.sh ./infra/deploy.sh ./infra/web.sh
 ```
 
 Change into your `infra` folder to continue:  
