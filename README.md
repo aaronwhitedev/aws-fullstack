@@ -26,7 +26,7 @@ AWS, Bash, Terraform, JavaScript, TypeScript, React, Vite, and Tailwind.
 
 You need an AWS account and an IAM role with an Access Key that has `AdministratorAccess`.
 
-Dowload the [AWS CLI](https://aws.amazon.com/cli/) or install using Homebrew `brew install awscli`
+Download the [AWS CLI](https://aws.amazon.com/cli/) or install using Homebrew `brew install awscli`
 
 Download [Node.js](https://nodejs.org) or install using Homebrew `brew install node`
 
