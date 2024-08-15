@@ -88,7 +88,7 @@ export TF_VAR_project=${project}
 export TF_VAR_region=${region}
 
 printf "bucket=\"infra.${domain}\"\nkey=\"terraform.tfstate\"\nregion=\"${region}\"" > "./config/terraform-config.txt"
-printf "domain=\"${domain}\"\nproject=\"${project}\"" > "./terraform.tfvars"
+printf "domain=\"${domain}\"\nproject=\"${project}\"\nregion=\"${region}\"" > "./terraform.tfvars"
 
 terraform init &> '/dev/null'
 
@@ -119,7 +119,7 @@ cp ./tailwind/eslint.config.js ../web/eslint.config.js
 
 printf "VITE_API=\"https://api.${domain}\"" > "../web/.env"
 ######################################################################
-/bin/bash ./build.sh
+/bin/bash ./api.sh
 
 terraform init --backend-config=./config/terraform-config.txt 2>&1
 zone_exists=$(terraform state show aws_route53_zone.hosted_zone -no-color 2>&1)

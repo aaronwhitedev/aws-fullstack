@@ -1,6 +1,5 @@
 #!/bin/bash
 
-/bin/bash ./build.sh
+/bin/bash ./api.sh
 terraform apply -auto-approve -no-color
-
 /bin/bash ./web.sh

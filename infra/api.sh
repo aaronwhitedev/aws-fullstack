@@ -31,14 +31,3 @@ done
 # Change back to infra
 cd ../
 
-if [ -d ./web ]; then
-	rm -r ./web
-fi
-
-if [ -d ./dist ]; then
-	rm -r ./dist
-fi
-
-cd ../web/
-npm run build 2>&1
-cd ../infra
