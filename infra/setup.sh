@@ -117,7 +117,7 @@ cp ./tailwind/index.css ../web/src/index.css
 cp ./tailwind/tailwind.config.js ../web/tailwind.config.js
 cp ./tailwind/eslint.config.js ../web/eslint.config.js
 
-printf "VITE_API=\"https://api.${domain}\"" > "../web/.env"
+printf "VITE_API=\"https://api.${domain}/\"" > "../web/.env"
 ######################################################################
 /bin/bash ./api.sh
 
