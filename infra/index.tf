@@ -1,12 +1,12 @@
 data "archive_file" "index_arch" {
   type        = "zip"
-  source_file = "${path.module}/lambdas/index.js"
-  output_path = "${path.module}/lambdas/index.zip"
+  source_file = "${path.module}/../api/lambdas/index.js"
+  output_path = "${path.module}/../api/lambdas/index.zip"
 }
 
 resource "aws_lambda_function" "index" {
   function_name    = "${var.project}_index"
-  filename         = "lambdas/index.zip"
+  filename         = "../api/lambdas/index.zip"
   runtime          = "nodejs18.x"
   handler          = "index.handler"
   timeout          = 10

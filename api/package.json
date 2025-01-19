@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.143"
+    "@types/aws-lambda": "^8.10.147",
+    "@types/node": "^22.10.7"
   },
   "description": ""
 }

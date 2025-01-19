@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# ONLY RUN ./setup.sh once
+# If it fails remove the Route53 domain prior to re-running
+# terraform state rm aws_route53_zone.hosted_zone
+
 # Prompt for domain if params don't exist
 if [ $# -eq 0 ]
   then
@@ -92,13 +96,18 @@ printf "domain=\"${domain}\"\nproject=\"${project}\"\nregion=\"${region}\"" > ".
 
 terraform init &> '/dev/null'
 
+# SETUP API
+cd ../api
+/bin/bash ./api.sh setup
+cd ../infra
+
 # SETUP WEB Front-End
 ######################################################################
 
 cd ../
 if [ -d ./web ]; then
-	echo "web folder must be removed to continue"
-	exit
+	echo "'web' folder must be removed for initial setup"
+	exit 1
 fi
 
 npm create vite@latest web -- --template react-ts 2>&1
@@ -116,10 +125,12 @@ cp ./tailwind/ErrorPage.tsx ../web/src/ErrorPage.tsx
 cp ./tailwind/index.css ../web/src/index.css
 cp ./tailwind/tailwind.config.js ../web/tailwind.config.js
 cp ./tailwind/eslint.config.js ../web/eslint.config.js
+cp ./web.sh  ../web/web.sh
+chmod +x ../web/web.sh
 
 printf "VITE_API=\"https://api.${domain}/\"" > "../web/.env"
 ######################################################################
-/bin/bash ./api.sh
+
 
 terraform init --backend-config=./config/terraform-config.txt 2>&1
 zone_exists=$(terraform state show aws_route53_zone.hosted_zone -no-color 2>&1)
@@ -132,6 +143,14 @@ if [[ "$zone_exists" = *'No instance'* || "$zone_exists" = *'No state file'* ]];
 	if [[ "$verify_zone_exists" = *'No instance'* || "$verify_zone_exists" = *'No state file'* ]]; then
 		echo "Domain wasn't imported"
 		echo "Run terraform import aws_route53_zone.hosted_zone ${hosted_zone_id} to continue"
-		exit
+		exit 1
 	fi
 fi
+
+terraform apply -auto-approve -no-color
+
+cd ../api
+/bin/bash ./api.sh
+cd ../web
+/bin/bash ./web.sh
+cd ../

@@ -12,7 +12,7 @@ Download the [AWS CLI](https://aws.amazon.com/cli/) or install using Homebrew `b
 
 Download [Node.js](https://nodejs.org) or install using Homebrew `brew install node`
 
-Download [Terraform](https://www.terraform.io/) or install using Homebrew:
+Download [Terraform](https://www.terraform.io/) or install using Homebrew
 
 ```
 brew tap hashicorp/tap
@@ -44,7 +44,7 @@ Simple fullstack apps in a single enviornment where you typically only need a fe
 Give the scripts execute permissions:
 
 ```
-chmod +x ./infra/setup.sh ./infra/api.sh ./infra/deploy.sh ./infra/web.sh
+chmod +x ./infra/setup.sh ./api/api.sh ./infra/deploy.sh ./infra/web.sh
 ```
 
 Change into your `infra` folder to continue:  
