@@ -1,12 +1,16 @@
-# AWS Fullstack App using Terraform
+# AWS Full-Stack App
 
-## Tech Stack
+## Boilerplate AWS Full-Stack JavaScript App
 
-AWS, Bash, Terraform, JavaScript, TypeScript, React, Vite, and Tailwind.
+Using this boilerplate repo will generate everything necessary to deploy a full-stack JavaScript app to AWS. This is a simple full-stack app designed for a single enviornment where you typically only need a few API endpoints and Lamdba functions.
 
-# Configuration:
+### This repo requires a domain name in Route 53.
 
-You need an AWS account and an IAM role with an Access Key that has `AdministratorAccess`.
+## Tech Stack & Configuration:
+
+AWS, Bash, Terraform, JavaScript/TypeScript, React, Vite, and Tailwind.
+
+Requires an AWS account and an IAM role with an Access Key that has `AdministratorAccess`.
 
 Download the [AWS CLI](https://aws.amazon.com/cli/) or install using Homebrew `brew install awscli`
 
@@ -21,13 +25,7 @@ brew update
 brew upgrade hashicorp/tap/terraform
 ```
 
-This repo requires a domain name in Route 53. It scaffolds out all the infrastructure necessary for your web app and API including DNS records, multiple ACM Certs the for apex domain and sub domains, S3 buckets, CloudFront distributions, API Gateway, and a Lambda function.
-
 The `apex` domain (`domain-name.com` for example) is redirected to the `www` version (`www.your-domain.com`) of the site. The API will be at `api.your-domain.com`.
-
-## Who this repo is inteded for:
-
-Simple fullstack apps in a single enviornment where you typically only need a few API endpoints and Lamdba functions.
 
 # What you'll deploy
 
