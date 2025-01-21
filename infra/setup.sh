@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# ONLY RUN ./setup.sh once
-# If it fails remove the Route53 domain prior to re-running
-# terraform state rm aws_route53_zone.hosted_zone
+# ONLY RUN ./setup.sh ONCE, then run ./deploy.sh
+
+# If you need to re-run ./setup.sh you must first remove the Route53 record - terraform state rm aws_route53_zone.hosted_zone
+# Then run `terraform destroy` before re-running `./setup.sh`
 
 # Prompt for domain if params don't exist
 if [ $# -eq 0 ]
@@ -20,6 +21,7 @@ if [[ $domain == www.* ]]; then
 	domain="${domain:4}"
 fi
 
+# configure deployment region
 region="us-west-2"
 
 # split domain a '.'
@@ -36,13 +38,18 @@ if [ "$domain_elements" -ne "2" ]; then
 	exit
 fi
 
+# project nameis apex domain without extension
 project="${array[0]}"
 unset IFS
 
-# Query AWS for your domain, use jq to parse the Hosted Zone Id
+# Query AWS for domain and get the Hosted Zone Id
 hosted_zone_info=$(aws route53 list-hosted-zones-by-name --max-items 1 --dns-name $domain)
 hosted_zone=$(echo "${hosted_zone_info}" | grep \"Id\")
 domain_info=$(echo "${hosted_zone_info}" | grep \"DNSName\")
+
+export TF_VAR_domain=${domain}
+export TF_VAR_project=${project}
+export TF_VAR_region=${region}
 
 IFS='/hostedzone/'
 read -ra array <<< "$hosted_zone"
@@ -87,14 +94,10 @@ if [[ $bucket_created = *'error'* ]]; then
 	fi
 fi
 
-export TF_VAR_domain=${domain}
-export TF_VAR_project=${project}
-export TF_VAR_region=${region}
-
 printf "bucket=\"infra.${domain}\"\nkey=\"terraform.tfstate\"\nregion=\"${region}\"" > "./config/terraform-config.txt"
 printf "domain=\"${domain}\"\nproject=\"${project}\"\nregion=\"${region}\"" > "./terraform.tfvars"
 
-terraform init &> '/dev/null'
+terraform init --backend-config=./config/terraform-config.txt 2>&1
 
 # SETUP API
 cd ../api
@@ -103,7 +106,6 @@ cd ../infra
 
 # SETUP WEB Front-End
 ######################################################################
-
 cd ../
 if [ -d ./web ]; then
 	echo "'web' folder must be removed for initial setup"
@@ -129,10 +131,7 @@ cp ./web.sh  ../web/web.sh
 chmod +x ../web/web.sh
 
 printf "VITE_API=\"https://api.${domain}/\"" > "../web/.env"
-######################################################################
 
-
-terraform init --backend-config=./config/terraform-config.txt 2>&1
 zone_exists=$(terraform state show aws_route53_zone.hosted_zone -no-color 2>&1)
 
 if [[ "$zone_exists" = *'No instance'* || "$zone_exists" = *'No state file'* ]]; then
@@ -147,10 +146,13 @@ if [[ "$zone_exists" = *'No instance'* || "$zone_exists" = *'No state file'* ]];
 	fi
 fi
 
+# apply terraform state
 terraform apply -auto-approve -no-color
 
 cd ../api
 /bin/bash ./api.sh
+
+
 cd ../web
 /bin/bash ./web.sh
 cd ../

@@ -74,24 +74,23 @@ for file in *.ts; do
 	fi
 done
 
-if [ "${1}" = "setup" ]; then
+if [ "${1}" != "setup" ]; then
 	for file in ./lambdas/*.js; do
 		IFS='/' read -ra array <<< "${file%.*}"
 		function_name=${array[2]}
 
 		# compare transpiled .js file against previous file (saved as .txt)
 		cmp -s ${file} "${file%.*}.txt"
+		
 		if [ $? -ne 0 ]; then
 			echo $(aws lambda update-function-code --function-name ${project}_${function_name} --zip-file fileb://lambdas/${function_name}.zip ) # &> /dev/null)
 			echo "Deploying ${function_name}"
 		fi
 	done
-	echo "API deployment finished..."
-else
-	echo "SETUP DONE"
+	echo "API deployed"
 fi
 
 # remove temp .txt files
-# for file in ./lambdas/*.txt; do
-# 	rm ${file}
-# done
+for file in ./lambdas/*.txt; do
+	rm ${file}
+done

@@ -50,11 +50,12 @@ chmod +x ./infra/setup.sh ./api/api.sh ./infra/deploy.sh ./infra/web.sh
 Change into your `infra` folder to continue:  
 `cd infra`
 
-Run the setup using the below:
+Run the setup using the below ONE TIME:
 `./setup.sh your-domain-name.com`
 
-Provided everything works, run:
-`./deploy.sh`
+After this you may run `./deploy.sh` to run changes to both API and Web.  
+Only deploy the web app by running `./web/web.sh`  
+Only deploy the API by running `./api/api.sh`
 
 ### Terraform
 

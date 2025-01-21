@@ -12,7 +12,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 	if [[ $line = *'domain='* ]]; then
 		domain=$(echo "${line//domain=/}" | tr -d '"')
 	fi
-done < "./terraform.tfvars"
+done < "../infra/terraform.tfvars"
 
 if [ ! -d ../web/dist ]; then
 	echo "Web app build doesn't exist"

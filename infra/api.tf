@@ -27,11 +27,13 @@ resource "aws_route53_record" "api_domain" {
     zone_id                = aws_apigatewayv2_domain_name.api_domain.domain_name_configuration[0].hosted_zone_id
     evaluate_target_health = false
   }
+
 }
 
 resource "aws_acm_certificate_validation" "api_cert_validate" {
   certificate_arn         = aws_acm_certificate.api_cert.arn
   validation_record_fqdns = [aws_route53_record.api_cert_dns.fqdn]
+  depends_on              = [aws_route53_record.api_domain]
 }
 
 resource "aws_apigatewayv2_domain_name" "api_domain" {
@@ -42,6 +44,8 @@ resource "aws_apigatewayv2_domain_name" "api_domain" {
     endpoint_type   = "REGIONAL"
     security_policy = "TLS_1_2"
   }
+
+  depends_on = [ aws_acm_certificate.api_cert, aws_route53_record.api_cert_dns ]
 }
 
 resource "aws_cloudwatch_log_group" "api_gw" {
