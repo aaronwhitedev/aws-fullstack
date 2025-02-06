@@ -6,7 +6,7 @@ Using this boilerplate repo will generate everything necessary to deploy a full-
 
 ### This repo requires a domain name in Route 53.
 
-## Tech Stack & Configuration:
+## Tech Stack & Configuration
 
 AWS, Bash, Terraform, JavaScript/TypeScript, React, Vite, and Tailwind.
 
@@ -48,7 +48,7 @@ chmod +x ./infra/setup.sh ./api/api.sh ./infra/deploy.sh ./infra/web.sh
 Change into your `infra` folder to continue:  
 `cd infra`
 
-Run the setup using the below ONE TIME:
+Run the setup using the below ONE TIME:  
 `./setup.sh your-domain-name.com`
 
 After this you may run `./deploy.sh` to run changes to both API and Web.  
